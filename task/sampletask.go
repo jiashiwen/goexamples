@@ -7,10 +7,6 @@ import (
 	"time"
 )
 
-const (
-	Type_Sampletask string = "SampleTask"
-)
-
 type SampleTask struct {
 	TaskInMem *TaskInMem
 	StatusDb  *gorm.DB

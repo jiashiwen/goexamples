@@ -6,14 +6,21 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"examples/commons"
+
+	uuid "github.com/satori/go.uuid"
 )
 
 type TaskStatus int32
 
 const (
-	Task_Stop    TaskStatus = 0
-	Task_Running TaskStatus = 1
+	Task_Stop       TaskStatus = 0
+	Task_Running    TaskStatus = 1
+	Type_Sampletask string     = "sampletask"
 )
+
+var TaskMap = map[string]string{
+	Type_Sampletask: Type_Sampletask,
+}
 
 type Task struct {
 	TaskId     string `gorm:"column:taskid"`
@@ -48,6 +55,13 @@ func InitLocalStatusDB(path string) {
 	}
 }
 
+func NewTask() *Task {
+	return &Task{
+		TaskId:     uuid.NewV4().String(),
+		TaskStatus: 0,
+	}
+}
+
 func (t *Task) CreateTask(db *gorm.DB) {
 	db.Create(t)
 }
@@ -55,6 +69,7 @@ func (t *Task) CreateTask(db *gorm.DB) {
 func GetTaskFromDbById(db *gorm.DB, id string) []Task {
 	var task []Task
 	db.Where("taskid = ?", id).Find(&task)
+
 	return task
 }
 

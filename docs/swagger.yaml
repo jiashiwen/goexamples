@@ -1,0 +1,44 @@
+definitions:
+  httpgin.CreateRequest:
+    properties:
+      autoStart:
+        type: boolean
+      taskName:
+        description: TaskName define your taskname
+        type: string
+      taskType:
+        type: string
+    type: object
+  httpgin.Response:
+    properties:
+      code:
+        type: string
+      error:
+        type: object
+      message:
+        type: object
+    type: object
+info:
+  contact: {}
+  license: {}
+paths:
+  /api/v1/createtask:
+    post:
+      consumes:
+      - application/x-json-stream
+      parameters:
+      - description: json for createtask
+        in: body
+        name: CreateRequest
+        required: true
+        schema:
+          $ref: '#/definitions/httpgin.CreateRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpgin.Response'
+      summary: Create Task
+      tags:
+      - 创建任务
+swagger: "2.0"

@@ -62,9 +62,10 @@ func TestTask(t *testing.T) {
 
 	})
 }
-func TestMain(m *testing.M) {
-	defer log.Sync()
-	log.Info("Start TestMain")
-	m.Run()
 
-}
+//func TestMain(m *testing.M) {
+//	defer log.Sync()
+//	log.Info("Start TestMain")
+//	m.Run()
+//
+//}

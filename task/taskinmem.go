@@ -7,7 +7,6 @@ import (
 	cmap "github.com/orcaman/concurrent-map"
 	"github.com/panjf2000/ants/v2"
 	"github.com/pkg/errors"
-	"github.com/satori/go.uuid"
 	"reflect"
 	"sync"
 )
@@ -25,13 +24,6 @@ var log = globlezap.GetLogger()
 type TaskInMem struct {
 	Task   *Task
 	Cancel *context.CancelFunc
-}
-
-func NewTask() *Task {
-	return &Task{
-		TaskId:     uuid.NewV4().String(),
-		TaskStatus: 0,
-	}
 }
 
 func GetRunningTaskMap() *cmap.ConcurrentMap {

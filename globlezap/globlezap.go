@@ -38,6 +38,7 @@ type LoggerDefine struct {
 	EncoderConfig zapcore.EncoderConfig
 	Level         zapcore.Level
 	EncoderType   EncoderType
+	Caller        bool //是否开启开发模式，堆栈跟踪
 }
 
 var defaultloggerdefine = &LoggerDefine{
@@ -63,7 +64,8 @@ var defaultloggerdefine = &LoggerDefine{
 		EncodeName:     zapcore.FullNameEncoder,
 	},
 	Level:       zap.DebugLevel,
-	EncoderType: EcoderJson,
+	EncoderType: EcoderConsol,
+	Caller:      false,
 }
 
 func GetLogger() *zap.Logger {
@@ -114,7 +116,10 @@ func (d *LoggerDefine) InitLogger() {
 	options := []zap.Option{}
 	// 开启开发模式，堆栈跟踪
 	caller := zap.AddCaller()
-	options = append(options, caller)
+
+	if d.Caller {
+		options = append(options, caller)
+	}
 	// 开启文件及行号
 	//development := zap.Development()
 	// 设置初始化字段
