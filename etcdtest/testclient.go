@@ -22,7 +22,7 @@ func GetEtcdClient() *clientv3.Client {
 // 获取集群member信息
 func GetClusterInfo() {
 	cli := GetEtcdClient()
-	cli.Get()
+
 	for {
 
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
